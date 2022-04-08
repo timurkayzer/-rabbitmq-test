@@ -3,7 +3,7 @@ import { AmqpService } from './amqp.service';
 import { AmqpController } from './amqp.controller';
 
 @Module({
-  controllers: [AmqpController],
-  providers: [AmqpService],
+	controllers: [AmqpController],
+	providers: [AmqpService],
 })
-export class AmqpModule { }
+export class AmqpModule {}

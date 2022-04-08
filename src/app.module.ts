@@ -4,8 +4,8 @@ import { AppService } from './app.service';
 import { AmqpModule } from './amqp/amqp.module';
 
 @Module({
-  imports: [AmqpModule],
-  controllers: [AppController],
-  providers: [AppService],
+	imports: [AmqpModule],
+	controllers: [AppController],
+	providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
