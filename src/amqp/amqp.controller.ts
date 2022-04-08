@@ -4,10 +4,10 @@ import { AmqpService } from './amqp.service';
 
 @Controller('amqp')
 export class AmqpController {
-  constructor(private readonly amqpService: AmqpService) { }
+	constructor(private readonly amqpService: AmqpService) {}
 
-  @Post()
-  async sendMessage(@Body() body: AmqpMessage) {
-    return { success: await this.amqpService.sendMessage(body) };
-  }
+	@Post()
+	async sendMessage(@Body() body: AmqpMessage) {
+		return { success: await this.amqpService.sendMessage(body) };
+	}
 }
