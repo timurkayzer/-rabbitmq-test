@@ -13,6 +13,7 @@ export class AmqpService {
 	private amqp: AMQPClient;
 	private connection: AMQPBaseClient;
 	private channel: AMQPChannel;
+	private queue: AMQPQueue;
 
 	constructor() {
 		this.init();
@@ -23,8 +24,8 @@ export class AmqpService {
 		this.connection = await this.amqp.connect();
 		this.channel = await this.connection.channel();
 
-		const queue = await this.createQueue('TestMessage');
-		this.subcribe(queue);
+		this.queue = await this.createQueue('TestMessage');
+		this.subcribe(this.queue);
 	}
 
 	async subcribe(queue: AMQPQueue): Promise<void> {
@@ -40,11 +41,19 @@ export class AmqpService {
 	}
 
 	async sendMessage(message: AmqpMessage): Promise<boolean> {
-		//await this.channel.basicPublish()
-		return false;
+		try {
+			console.log("Message sent", message.content);
+			this.queue.publish(JSON.stringify(message.content, null, 4));
+			return true;
+		}
+		catch (e) {
+			console.error('Error while sending message,', e);
+			return false;
+		}
+
 	}
 
 	handleMessage(msg: AMQPMessage): void {
-		console.log(msg);
+		console.log("Message received", msg.bodyToString());
 	}
 }
